@@ -27,6 +27,11 @@
 *.out
 *.app
 
+# Vs
+Debug/
+Release/
+.vs/
+
 # =========================
 # Operating System Files
 # =========================
