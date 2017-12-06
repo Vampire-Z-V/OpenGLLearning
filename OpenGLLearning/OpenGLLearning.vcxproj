@@ -131,17 +131,13 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="shader.cpp" />
-    <ClCompile Include="SierpinskiGasket.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="SierpinskiGasket.h" />
-    <ClInclude Include="triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_shader.glsl" />

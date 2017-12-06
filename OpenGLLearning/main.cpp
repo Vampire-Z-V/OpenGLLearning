@@ -60,7 +60,10 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 	Shader myShaderProgram("vertex_shader.glsl", "fragment_shader.glsl");
 
-	Model myModel("obj/House/house_obj.obj");
+	Model myModel("models/house/house.obj");
+	//Model myModel("models/bike/bike.obj");
+	//Model myModel("models/basketballStands/basketballStands.obj");
+	//Model myModel("models/lamp/lamp.obj");
 	
 	glm::vec3 lightPos(1.2f, 1.0f, 1.0f);
 
@@ -96,8 +99,8 @@ int main()
 		myShaderProgram.setUniform("viewPos", camera.Position);
 
 		myShaderProgram.setUniform("pLight.position", glm::vec3(-2.5f, 2.5f, -2.5f));
-		myShaderProgram.setUniform("pLight.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
-		myShaderProgram.setUniform("pLight.diffuse", glm::vec3(0.5f,0.5f, 0.5f));
+		myShaderProgram.setUniform("pLight.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
+		myShaderProgram.setUniform("pLight.diffuse", glm::vec3(1.0f,1.0f, 1.0f));
 		myShaderProgram.setUniform("pLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 		//myShaderProgram.setUniform("pLight.direction", glm::vec3(-1.0f, -1.0f, -1.0f));
 		myShaderProgram.setUniform("pLight.constant", 1.0f);

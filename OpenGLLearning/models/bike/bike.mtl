@@ -1,0 +1,70 @@
+newmtl bike1:blinn1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd tire_diff.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks tire_spec.png
+newmtl bike1:blinn2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd center_diff.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks center_spec.png
+newmtl bike1:blinn3SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd link_diff.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks link_spec.png
+newmtl bike1:blinn4SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd yellowFrame_diff.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks yellowFrame_spec.png
+newmtl bike1:blinn7SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd default_diff.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks default_spec.png
+newmtl initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl phong2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+newmtl set18
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl set28
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.08 0.13 0.00
+Ns 18.00
