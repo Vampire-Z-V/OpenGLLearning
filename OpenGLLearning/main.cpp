@@ -20,7 +20,7 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 768;
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 3.0f, 10.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -31,12 +31,13 @@ float lastFrame = 0.0f;
 
 int main()
 {
+#pragma region init
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "House", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Scene", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create glfw window" << std::endl;
@@ -58,12 +59,14 @@ int main()
 		return -1;
 	}
 	glEnable(GL_DEPTH_TEST);
-	Shader myShaderProgram("vertex_shader.glsl", "fragment_shader.glsl");
+#pragma endregion
 
-	Model myModel("models/house/house.obj");
-	//Model myModel("models/bike/bike.obj");
-	//Model myModel("models/basketballStands/basketballStands.obj");
-	//Model myModel("models/lamp/lamp.obj");
+	Shader shaderProgram("vertex_shader.glsl", "fragment_shader.glsl");
+
+	Model modelHouse("models/house/house.obj");
+	Model modelBike("models/bike/bike.obj");
+	Model modelBasketballStands("models/basketballStands/basketballStands.obj");
+	Model modelLamp("models/lamp/lamp.obj");
 	
 	glm::vec3 lightPos(1.2f, 1.0f, 1.0f);
 
@@ -74,41 +77,52 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-
 		processInput(window);
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		myShaderProgram.use();
+		shaderProgram.use();
 
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
-		myShaderProgram.setUniform("projection", projection);
-		myShaderProgram.setUniform("view", view);
+		shaderProgram.setUniform("projection", projection);
+		shaderProgram.setUniform("view", view);
 
 		// render the loaded model
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
-		myShaderProgram.setUniform("model", model);
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));	// it's a bit too big for our scene, so scale it down
+		//shaderProgram.setUniform("model", model);
 
-		//myShaderProgram.setUniform("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
-		myShaderProgram.setUniform("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-		//myShaderProgram.setUniform("lightPos", lightPos);
-		myShaderProgram.setUniform("viewPos", camera.Position);
+		shaderProgram.setUniform("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+		shaderProgram.setUniform("viewPos", camera.Position);
 
-		myShaderProgram.setUniform("pLight.position", glm::vec3(-2.5f, 2.5f, -2.5f));
-		myShaderProgram.setUniform("pLight.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-		myShaderProgram.setUniform("pLight.diffuse", glm::vec3(1.0f,1.0f, 1.0f));
-		myShaderProgram.setUniform("pLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
-		//myShaderProgram.setUniform("pLight.direction", glm::vec3(-1.0f, -1.0f, -1.0f));
-		myShaderProgram.setUniform("pLight.constant", 1.0f);
-		myShaderProgram.setUniform("pLight.linear", 0.09f);
-		myShaderProgram.setUniform("pLight.quadratic", 0.032f);
+		shaderProgram.setUniform("pLight.position", glm::vec3(-2.5f, 2.5f, -2.5f));
+		shaderProgram.setUniform("pLight.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
+		shaderProgram.setUniform("pLight.diffuse", glm::vec3(1.0f,1.0f, 1.0f));
+		shaderProgram.setUniform("pLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+		shaderProgram.setUniform("pLight.constant", 1.0f);
+		shaderProgram.setUniform("pLight.linear", 0.09f);
+		shaderProgram.setUniform("pLight.quadratic", 0.032f);
 
-		myModel.Draw(myShaderProgram);
-	/*	glBindVertexArray(VAO);
+		shaderProgram.setUniform("isSpecular", false);
+		glm::mat4 modelTemp = model;
+		shaderProgram.setUniform("model", modelTemp);
+		modelHouse.draw(shaderProgram);
+
+		modelTemp = glm::translate(model, glm::vec3(-12.0f, 0.0f, 7.0f));
+		shaderProgram.setUniform("model", modelTemp);
+		modelBasketballStands.draw(shaderProgram);
+
+		modelTemp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 14.0f));
+		shaderProgram.setUniform("model", modelTemp);
+		modelLamp.draw(shaderProgram);
+
+		shaderProgram.setUniform("isSpecular", true);
+		modelTemp = glm::translate(model, glm::vec3(3.0f, 0.0f, -1.0f));
+		shaderProgram.setUniform("model", modelTemp);
+		modelBike.draw(shaderProgram);
+		/*	glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);*/
 
 		/*model = glm::mat4();

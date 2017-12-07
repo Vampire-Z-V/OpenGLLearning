@@ -26,19 +26,15 @@ uniform vec3 viewPos;
 uniform PointLight pLight;
 uniform bool isSpecular = false;
 
-
 void main()
 {    
-	// ������
 	vec3 ambient = pLight.ambient * vec3(texture(texture_specular1, TexCoords));
 
-	// ������
 	vec3 normal = normalize(Normal);
-	//vec3 lightDir = normalize(-pLight.direction);
 	vec3 lightDir = normalize(pLight.position - FragPos);
 	float diff = max(dot(normal, lightDir), 0.0);
 	vec3 diffuse = pLight.diffuse * diff * vec3(texture(texture_diffuse1, TexCoords));
-	// �߹ⷴ��
+
 	vec3 specular;
 	if(isSpecular){
 		vec3 viewDir = normalize(viewPos - FragPos);

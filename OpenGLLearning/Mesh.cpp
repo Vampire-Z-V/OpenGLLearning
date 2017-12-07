@@ -38,7 +38,7 @@ void Mesh::draw(Shader shader)
 			ss << heightNum++;
 		number = ss.str();
 
-		shader.setUniform(( "material." + name + number ).c_str(), (float)i);
+		shader.setUniform(( name + number ).c_str(), (float)i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
 
